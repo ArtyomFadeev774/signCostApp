@@ -1,0 +1,58 @@
+body {
+	box-sizing: border-box;
+}
+
+.container {
+	display: flex;
+	gap: 10px;
+}
+
+.info__content {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.verticalLines-container,
+.horizontalLines-container {
+}
+
+.info__verticalLines {
+	line-height: 1.5;
+}
+
+b.red {
+	background-color: #d08d8d;
+	padding: 1px;
+}
+
+b.green {
+	background-color: #008000;
+	padding: 1px;
+}
+
+.input-panel {
+	background-color: lightblue;
+	width: 100%;
+	padding: 20px;
+	box-sizing: border-box;
+}
+
+.input-panel__container {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 20px;
+}
+
+.canvas {
+	width: 1296px;
+}
+
+.select-range {
+	width: 200px;
+	margin-top: 20px;
+}
+
+.test {
+  transform: translateX(10px) !important;
+}

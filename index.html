@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<link rel="stylesheet" href="style.css" />
+		<link rel="stylesheet" href="notify.css" />
+		<!-- Подключаем стили bootstrap (иногда надо обновлять) -->
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+			crossorigin="anonymous"
+		/>
+		<!-- иконки  -->
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css"
+		/>
+	</head>
+	<body>
+		<div class="container">
+			<div class="accordion" id="accordionPanelsStayOpenExampleInput">
+				<div class="accordion-item">
+					<h2 class="accordion-header">
+						<button
+							class="accordion-button"
+							type="button"
+							data-bs-toggle="collapse"
+							data-bs-target="#panelsStayOpen-collapseInput"
+							aria-expanded="true"
+							aria-controls="panelsStayOpen-collapseInput"
+						>
+							Панель ввода
+						</button>
+					</h2>
+					<div
+						id="panelsStayOpen-collapseInput"
+						class="accordion-collapse collapse show"
+					>
+						<div class="accordion-body">
+							<div class="container">
+								<div class="input-panel">
+									<div class="input-group mb-3">
+										<span class="input-group-text" id="inputWidth"
+											>Ширина (мм)</span
+										>
+										<input
+											type="text"
+											class="form-control"
+											aria-label="Sizing example input"
+											aria-describedby="inputWidth"
+											id="inputWidthData"
+										/>
+									</div>
+									<div class="input-group mb-3">
+										<span class="input-group-text" id="inputHeight"
+											>Высота (мм)&nbsp;&nbsp;</span
+										>
+										<input
+											type="text"
+											class="form-control"
+											aria-label="Sizing example input"
+											aria-describedby="inputHeight"
+											id="inputHeightData"
+										/>
+									</div>
+									<div>
+										*высота не более 2500, ширина не более 6000<br />
+										*ширина не менее 1000
+									</div>
+
+									<div class="select-range">
+										<label for="customRangeScale" class="form-label"
+											>Масштаб</label
+										>
+										<label class="form-label" id="scaleValue">1</label>
+										<input
+											type="range"
+											class="form-range"
+											min="1"
+											max="20"
+											step="1"
+											value="20"
+											id="customRangeScale"
+											style="transform: scaleX(-1)"
+										/>
+									</div>
+									<button type="button" class="btn btn-primary" id="btn">
+										Рассчитать
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="accordion-item">
+					<h2 class="accordion-header">
+						<button
+							class="accordion-button"
+							type="button"
+							data-bs-toggle="collapse"
+							data-bs-target="#panelsStayOpen-collapseCanvas"
+							aria-expanded="true"
+							aria-controls="panelsStayOpen-collapseCanvas"
+						>
+							Панель отрисовки
+						</button>
+					</h2>
+					<div
+						id="panelsStayOpen-collapseCanvas"
+						class="accordion-collapse collapse show"
+					>
+						<div class="accordion-body">
+							<div class="container">
+								<div style="margin-top: 20px; width: 100%">
+									<canvas id="example" class="canvas bg-info"> </canvas>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="container">
+			<div class="row">
+				<h1>
+					<span class="badge text-primary-emphasis">Данные по знаку:</span>
+					<div class="horizontalLines-container">
+						<div class="accordion" id="accordionPanelsStayOpenExample">
+							<div class="accordion-item">
+								<h2 class="accordion-header">
+									<button
+										class="accordion-button"
+										type="button"
+										data-bs-toggle="collapse"
+										data-bs-target="#panelsStayOpen-collapseMain"
+										aria-expanded="true"
+										aria-controls="panelsStayOpen-collapseMain"
+									>
+										Общая информация
+									</button>
+								</h2>
+								<div
+									id="panelsStayOpen-collapseMain"
+									class="accordion-collapse collapse show"
+								>
+									<div class="accordion-body">
+										<p class="fs-5">
+											<strong>Длина: </strong> <span class="infoWidth"></span
+											><br />
+											<strong>Высота: </strong> <span class="infoHeight"></span
+											><br />
+											<strong>Тип уголка: </strong
+											><span class="infoCornerType"></span><br />
+											<strong>Дубль: </strong>
+											<span class="infoDublicate"></span><br />
+											<strong>Развёрнут: </strong
+											><span class="infoRotate"></span><br />
+											<strong>Площадь: </strong><span class="infoArea"></span
+											><br />
+										</p>
+
+										<!-- <button type="button" class="btn bg-info">
+											<i class="bi bi-clipboard"></i> Копировать
+										</button> -->
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</h1>
+			</div>
+			<div class="row">
+				<div class="col">
+					<div class="info">
+						<div class="info__content">
+							<div class="horizontalLines-container">
+								<h1>
+									<span class="badge text-bg-success"
+										>Горизонтальные линии:</span
+									>
+								</h1>
+								<div class="accordion" id="accordionPanelsStayOpenExample">
+									<div class="accordion-item">
+										<h2 class="accordion-header">
+											<button
+												class="accordion-button collapsed"
+												type="button"
+												data-bs-toggle="collapse"
+												data-bs-target="#panelsStayOpen-collapseOne"
+												aria-expanded="true"
+												aria-controls="panelsStayOpen-collapseOne"
+											>
+												Длины и уголки
+											</button>
+										</h2>
+										<div
+											id="panelsStayOpen-collapseOne"
+											class="accordion-collapse collapse"
+										>
+											<div class="accordion-body">
+												<div class="horizontal-lines-info"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col">
+					<div class="info">
+						<div class="info__content">
+							<div class="horizontalLines-container">
+								<h1>
+									<span class="badge text-bg-danger">Вертикальные линии:</span>
+								</h1>
+								<div class="accordion" id="accordion2">
+									<div class="accordion-item">
+										<h2 class="accordion-header">
+											<button
+												class="accordion-button collapsed"
+												type="button"
+												data-bs-toggle="collapse"
+												data-bs-target="#panelsStayOpen-collapseFree"
+												aria-expanded="true"
+												aria-controls="panelsStayOpen-collapseFree"
+												data-bs-parent="#accordion2"
+											>
+												Длины и уголки
+											</button>
+										</h2>
+										<div
+											id="panelsStayOpen-collapseFree"
+											class="accordion-collapse collapse"
+										>
+											<div class="accordion-body">
+												<div class="vertical-lines-info"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="container">
+			<div class="row">
+				<h1>
+					<span class="badge text-primary-emphasis">Расчёты по уголкам:</span>
+				</h1>
+				<div class="accordion" id="accordion3">
+					<div class="accordion-item">
+						<h2 class="accordion-header">
+							<button
+								class="accordion-button"
+								type="button"
+								data-bs-toggle="collapse"
+								data-bs-target="#panelsStayOpen-collapseFree"
+								aria-expanded="true"
+								aria-controls="panelsStayOpen-collapseFree"
+								data-bs-parent="#accordion3"
+							>
+								Цены на материалы
+							</button>
+						</h2>
+						<div
+							id="panelsStayOpen-collapseFree"
+							class="accordion-collapse collapse show"
+						>
+							<div class="accordion-body">
+								<div class="input-group mb-3">
+									<span class="input-group-text">∠25 ₽/пгм</span>
+									<input
+										type="number"
+										class="form-control"
+										aria-label="Amount (to the nearest dollar)"
+										min="0"
+										value="100"
+										data-js="25pgm"
+									/>
+								</div>
+								<div class="input-group mb-3">
+									<span class="input-group-text">∠35 ₽/пгм</span>
+									<input
+										type="number"
+										class="form-control"
+										aria-label="Amount (to the nearest dollar)"
+										min="0"
+										value="100"
+										data-js="35pgm"
+									/>
+								</div>
+								<div class="input-group mb-3">
+									<span class="input-group-text">∠45 ₽/пгм</span>
+									<input
+										type="number"
+										class="form-control"
+										aria-label="Amount (to the nearest dollar)"
+										min="0"
+										value="100"
+										data-js="45pgm"
+									/>
+								</div>
+								<div class="input-group mb-3">
+									<span class="input-group-text">40*40 ₽/пгм</span>
+									<input
+										type="number"
+										class="form-control"
+										aria-label="Amount (to the nearest dollar)"
+										min="0"
+										value="100"
+										data-js="40pgm"
+									/>
+								</div>
+								<br />
+								<div class="input-group mb-3">
+									<span class="input-group-text">руб/м^2</span>
+									<label
+										>Плёнка (первый слой)<input
+											type="number"
+											class="form-control"
+											aria-label="Amount (to the nearest dollar)"
+											min="0"
+											value="100"
+											data-js="tape"
+									/></label>
+								</div>
+								<div class="input-group mb-3">
+									<span class="input-group-text">руб/м^2</span>
+									<label
+										>Плёнка (второй слой)<input
+											type="number"
+											class="form-control"
+											aria-label="Amount (to the nearest dollar)"
+											min="0"
+											value="100"
+											data-js="tape2"
+									/></label>
+								</div>
+								<div class="input-group mb-3">
+									<span class="input-group-text">%</span>
+									<label
+										>Площадь второго слоя плёнки относительно общей площади
+										знака (в процентах)<input
+											type="number"
+											class="form-control"
+											aria-label="Amount (to the nearest dollar)"
+											min="0"
+											value="100"
+											data-js="tape2coeff"
+									/></label>
+								</div>
+								<div class="input-group mb-3">
+									<span class="input-group-text">руб/м^2</span>
+									<label
+										>Оцинковка<input
+											type="number"
+											class="form-control"
+											aria-label="Amount (to the nearest dollar)"
+											min="0"
+											value="100"
+											data-js="zink"
+									/></label>
+								</div>
+								<!-- <div class="input-group mb-3">
+									<span class="input-group-text">Плёнка (второй слой)</span>
+									<input
+										type="number"
+										class="form-control"
+										aria-label="Amount (to the nearest dollar)"
+										min="0"
+										value="100"
+										data-js="руб/м^2"
+									/>
+								</div> -->
+								<button type="button" class="btn btn-primary" id="btnSaveCosts">
+									Сохранить
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<h1>
+					<span class="badge text-primary-emphasis">Результаты</span>
+				</h1>
+				<div class="accordion" id="accordion3">
+					<div class="accordion-item">
+						<h2 class="accordion-header">
+							<button
+								class="accordion-button"
+								type="button"
+								data-bs-toggle="collapse"
+								data-bs-target="#panelsStayOpen-collapseFree"
+								aria-expanded="true"
+								aria-controls="panelsStayOpen-collapseFree"
+								data-bs-parent="#accordion3"
+							>
+								Рассчет
+							</button>
+						</h2>
+						<div
+							id="panelsStayOpen-collapseFree"
+							class="accordion-collapse collapse show"
+						>
+							<div class="accordion-body">
+								<div class="result">----------------------------------</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- <div class="container"></div>
+		<div class="notify">
+			<div class="notify__message--hidden">
+				<div class="notify__container">
+					<span class="notify__cross">X</span>
+					<div class="notify__text"></div>
+				</div>
+			</div>
+		</div> -->
+		<script src="notify.js"></script>
+		<script src="main.js"></script>
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+			crossorigin="anonymous"
+		></script>
+		<script
+			type="text/javascript"
+			src="https://cdn.jsdelivr.net/npm/toastify-js"
+		></script>
+	</body>
+</html>
